@@ -1,0 +1,12 @@
+load("@rules_python//python:pip.bzl", "compile_pip_requirements")
+
+compile_pip_requirements(
+    name = "requirements_lock",
+    timeout = "moderate",
+    src = "requirements.txt",
+    extra_args = ["--allow-unsafe"],
+    requirements_txt = "requirements.txt.lock",
+    requirements_linux = "requirements.txt.linux_x86_32.lock",
+    requirements_darwin = "requirements.txt.darwin_aarch64.lock",
+    tags = ["manual"],
+)

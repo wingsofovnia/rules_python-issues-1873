@@ -1,0 +1,4 @@
+onnx==1.15.0
+onnxruntime-gpu==1.17.1; sys_platform == 'linux' and platform_machine == 'x86_64' # cuda
+onnxruntime==1.17.1; sys_platform != 'linux' or platform_machine != 'x86_64' # cpu and coreml execution provider
+opencv-python==4.8.1.78

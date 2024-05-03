@@ -1,0 +1,29 @@
+bazel_dep(name = "gazelle", version = "0.36.0")
+bazel_dep(name = "rules_python", version = "0.31.0")
+
+git_override(
+    module_name = "rules_python",
+    commit = "d3cec48e415dd598a773335532cbc5647c985a93",
+    remote = "https://github.com/bazelbuild/rules_python.git",
+)
+
+python = use_extension("@rules_python//python/extensions:python.bzl", "python")
+python.toolchain(
+    is_default = True,
+    python_version = "3.10",
+)
+
+pip = use_extension("@rules_python//python/extensions:pip.bzl", "pip")
+pip.parse(
+    experimental_target_platforms = [
+        "osx_aarch64",
+        "linux_x86_32",
+    ],
+    hub_name = "pip",
+    python_version = "3.10",
+    requirements_lock = "//:requirements.txt.lock",
+    requirements_linux = "//:requirements.txt.linux_x86_32.lock",
+    requirements_darwin = "//:requirements.txt.darwin_aarch64.lock",
+    
+)
+use_repo(pip, "pip")
